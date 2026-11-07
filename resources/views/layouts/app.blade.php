@@ -25,6 +25,11 @@
                         <a href="{{ route('courses.index') }}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Katalog Kursus</a>
                         @auth
                             <a href="{{ route('my.courses') }}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Kursus Saya</a>
+                            @if(in_array(Auth::user()->role, ['instructor', 'admin']))
+                                <a href="{{ route('instructor.courses.index') }}" class="text-indigo-600 hover:text-indigo-800 font-semibold px-3 py-2 text-sm">
+                                    ⚙️ Kelola Kursus
+                                </a>
+                            @endif
                         @endauth
                     </div>
                 </div>

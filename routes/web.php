@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\InstructorCourseController;
 use App\Http\Controllers\LessonController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,17 @@ Route::middleware('auth')->group(function () {
 
     // Ruang Belajar (Classroom / Video Player)
     Route::get('/courses/{slug}/lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
+
+    // Manajemen Kursus & Modul Instruktur (FR-08 & FR-09)
+    Route::prefix('instructor')->name('instructor.')->group(function () {
+        Route::get('/courses', [InstructorCourseController::class, 'index'])->name('courses.index');
+        Route::get('/courses/create', [InstructorCourseController::class, 'create'])->name('courses.create');
+        Route::post('/courses', [InstructorCourseController::class, 'store'])->name('courses.store');
+        Route::get('/courses/{course}/edit', [InstructorCourseController::class, 'edit'])->name('courses.edit');
+        Route::put('/courses/{course}', [InstructorCourseController::class, 'update'])->name('courses.update');
+        Route::delete('/courses/{course}', [InstructorCourseController::class, 'destroy'])->name('courses.destroy');
+        Route::get('/courses/{course}/lessons', [InstructorCourseController::class, 'lessons'])->name('courses.lessons');
+        Route::post('/courses/{course}/lessons', [InstructorCourseController::class, 'storeLesson'])->name('courses.lessons.store');
+        Route::delete('/courses/{course}/lessons/{lesson}', [InstructorCourseController::class, 'destroyLesson'])->name('courses.lessons.destroy');
+    });
 });
