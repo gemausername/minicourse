@@ -15,16 +15,22 @@ class EnrollmentController extends Controller
         $course = Course::findOrFail($courseId);
 
         // Cek jika sudah terdaftar
-        $alreadyEnrolled = Enrollment::where('user_id', $user->id)
+        $enrollment = Enrollment::where('user_id', $user->id)
             ->where('course_id', $course->id)
-            ->exists();
+            ->first();
 
-        if (!$alreadyEnrolled) {
-            Enrollment::create([
+        if (!$enrollment) {
+            $initialStatus = ($course->price > 0) ? 'pending' : 'active';
+            $enrollment = Enrollment::create([
                 'user_id' => $user->id,
                 'course_id' => $course->id,
-                'status' => 'active',
+                'status' => $initialStatus,
             ]);
+        }
+
+        if ($enrollment->status === 'pending') {
+            return redirect()->route('my.courses')
+                ->with('success', 'Pendaftaran berhasil dikirim! Menunggu persetujuan / konfirmasi pembayaran oleh Admin.');
         }
 
         $firstLesson = $course->lessons()->orderBy('order_number')->first();

@@ -27,7 +27,7 @@
             </div>
 
             @auth
-                @if($isEnrolled)
+                @if($enrollment && $enrollment->status === 'active')
                     @if($course->lessons->count() > 0)
                         <a href="{{ route('lessons.show', [$course->slug, $course->lessons->first()->id]) }}"
                            class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg shadow-sm transition">
@@ -38,11 +38,15 @@
                             Materi Segera Hadir
                         </button>
                     @endif
+                @elseif($enrollment && $enrollment->status === 'pending')
+                    <div class="bg-amber-50 border border-amber-200 text-amber-800 p-3 rounded-lg text-center text-xs font-semibold">
+                        ⏳ Menunggu Persetujuan Admin / Konfirmasi Pembayaran
+                    </div>
                 @else
                     <form action="{{ route('enroll.store', $course->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-sm transition">
-                            Daftar Kursus Sekarang
+                            {{ $course->price == 0 ? 'Daftar Gratis Sekarang' : 'Beli & Daftar Kursus' }}
                         </button>
                     </form>
                 @endif
@@ -74,7 +78,7 @@
                     </div>
 
                     @auth
-                        @if($isEnrolled)
+                        @if($enrollment && $enrollment->status === 'active')
                             <a href="{{ route('lessons.show', [$course->slug, $lesson->id]) }}" 
                                class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">
                                 Buka Materi &rarr;

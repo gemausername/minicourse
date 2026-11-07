@@ -32,6 +32,9 @@
                                 <a href="{{ route('admin.categories.index') }}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
                                     📂 Kategori
                                 </a>
+                                <a href="{{ route('admin.enrollments.index') }}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
+                                    📋 Pendaftaran Siswa
+                                </a>
                             @endif
                         @endauth
                     </div>

@@ -34,11 +34,11 @@ class CourseController extends Controller
     {
         $course = Course::with(['instructor', 'category', 'lessons'])->where('slug', $slug)->firstOrFail();
 
-        $isEnrolled = false;
+        $enrollment = null;
         if (Auth::check()) {
-            $isEnrolled = Auth::user()->enrollments()->where('course_id', $course->id)->exists();
+            $enrollment = Auth::user()->enrollments()->where('course_id', $course->id)->first();
         }
 
-        return view('courses.show', compact('course', 'isEnrolled'));
+        return view('courses.show', compact('course', 'enrollment'));
     }
 }

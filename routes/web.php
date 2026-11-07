@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\AdminEnrollmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
@@ -44,11 +45,16 @@ Route::middleware('auth')->group(function () {
         Route::delete('/courses/{course}/lessons/{lesson}', [InstructorCourseController::class, 'destroyLesson'])->name('courses.lessons.destroy');
     });
 
-    // Manajemen Kategori Admin (FR-07)
+    // Manajemen Kategori Admin (FR-07) & Persetujuan Pendaftaran (FR-10)
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
         Route::post('/categories', [AdminCategoryController::class, 'store'])->name('categories.store');
         Route::put('/categories/{category}', [AdminCategoryController::class, 'update'])->name('categories.update');
         Route::delete('/categories/{category}', [AdminCategoryController::class, 'destroy'])->name('categories.destroy');
+
+        // Validasi Pendaftaran Siswa (FR-10)
+        Route::get('/enrollments', [AdminEnrollmentController::class, 'index'])->name('enrollments.index');
+        Route::patch('/enrollments/{enrollment}/approve', [AdminEnrollmentController::class, 'approve'])->name('enrollments.approve');
+        Route::delete('/enrollments/{enrollment}/reject', [AdminEnrollmentController::class, 'reject'])->name('enrollments.reject');
     });
 });
