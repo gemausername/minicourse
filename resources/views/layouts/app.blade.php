@@ -29,6 +29,9 @@
                                 <a href="{{ route('instructor.courses.index') }}" class="text-indigo-600 hover:text-indigo-800 font-semibold px-3 py-2 text-sm">
                                     ⚙️ Kelola Kursus
                                 </a>
+                                <a href="{{ route('admin.categories.index') }}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
+                                    📂 Kategori
+                                </a>
                             @endif
                         @endauth
                     </div>
