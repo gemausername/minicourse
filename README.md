@@ -1,58 +1,111 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Mini Udemy Clone - Platform Kursus Online Berbasis Web
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> Sistem Manajemen Pembelajaran (LMS) sederhana yang dibangun dengan framework **Laravel 12/13**, basis data **SQLite**, dan antarmuka modern **Tailwind CSS**. Dikembangkan mengikuti acuan dokumen spesifikasi **SRS (Software Requirements Specification)** dengan metodologi SDLC Waterfall.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 👥 Tim Pengembang
+Proyek ini dikembangkan secara kolaboratif oleh tim beranggotakan 3 orang dengan pembagian modul:
+1. **Anggota 1:** Modul Autentikasi Pengguna & Role Siswa/Instruktur (`FR-01`, `FR-02`).
+2. **Anggota 2:** Modul Katalog Kursus, Detail Silabus & Ruang Belajar (`FR-03`, `FR-04`, `FR-06`).
+3. **Anggota 3:** Modul Manajemen Kursus, Kategori & Validasi Pendaftaran Siswa (`FR-05`, `FR-07`, `FR-08`, `FR-09`, `FR-10`).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🎯 Fitur Sistem (Kesesuaian dengan Dokumen SRS)
 
-## Learning Laravel
+| Kode SRS | Nama Fitur | Deskripsi | Hak Akses | Status |
+| :---: | :--- | :--- | :---: | :---: |
+| **FR-01** | Registrasi Akun | Pendaftaran akun baru dengan memilih role (Siswa / Instruktur). | Publik | ✅ Selesai |
+| **FR-02** | Login & Logout | Autentikasi sesi aman menggunakan email & password. | Publik / User | ✅ Selesai |
+| **FR-03** | Katalog Kursus | Pencarian kursus dan filter berdasarkan kategori topik. | Publik | ✅ Selesai |
+| **FR-04** | Detail Kursus | Rincian materi, kurikulum silabus, profil instruktur, dan harga. | Publik | ✅ Selesai |
+| **FR-05** | Enrollment Kursus | Pendaftaran kursus (Otomatis Aktif jika gratis / Pending jika berbayar). | Siswa | ✅ Selesai |
+| **FR-06** | Ruang Belajar | Player pemutar video materi (embed) + rangkuman catatan bab. | Siswa Terdaftar | ✅ Selesai |
+| **FR-07** | Kelola Kategori | Tambah, ubah, dan hapus kategori topik pembelajaran. | Admin / Instruktur | ✅ Selesai |
+| **FR-08** | Kelola Kursus | Buat kursus baru, edit judul/deskripsi/harga/thumbnail, dan hapus. | Admin / Instruktur | ✅ Selesai |
+| **FR-09** | Kelola Modul Materi | Unggah video materi dan susun urutan bab materi silabus. | Admin / Instruktur | ✅ Selesai |
+| **FR-10** | Validasi Pendaftaran | Pantau dan setujui (approve) pendaftaran siswa yang berstatus pending. | Admin / Instruktur | ✅ Selesai |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Panduan Menjalankan di Komputer Lokal
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+### 1. Kloning Repository
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone git@github.com:gemausername/minicourse.git
+cd minicourse
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Pasang Dependensi
+```bash
+composer install
+```
 
-## Contributing
+### 3. Konfigurasi Environment & Key
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 4. Setup Database SQLite & Seeder
+```bash
+touch database/database.sqlite
+php artisan migrate:fresh --seed
+```
 
-## Code of Conduct
+### 5. Jalankan Web Server
+```bash
+php artisan serve
+```
+Akses aplikasi melalui peramban web di: **`http://127.0.0.1:8000`**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🔑 Akun Demo Siap Pakai
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Peran (Role) | Email | Kata Sandi | Kegunaan |
+| :--- | :--- | :--- | :--- |
+| **Siswa (Student)** | `siswa@example.com` | `password` | Menguji alur pencarian, enroll kursus, dashboard, dan menonton materi. |
+| **Instruktur / Admin** | `instruktur@example.com` | `password` | Menguji buat kursus baru, tambah modul video, kategori, dan approval siswa. |
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🧪 Pengujian Black Box Testing (Bab 4 SRS)
+Sistem telah dilengkapi dengan automated feature test yang menguji secara langsung setiap skenario pengujian di dokumen SRS (`TC-01` s/d `TC-06`).
+
+Untuk menjalankan seluruh uji otomatis:
+```bash
+php artisan test --filter=BlackBoxSrsTest
+```
+Semua 6 skenario pengujian akan tervalidasi dengan hasil **PASSED**.
+
+---
+
+## 🌐 Panduan Deployment ke Server Mobian (`gemas.v6.rocks`)
+
+Karena sistem menggunakan **SQLite** dan **PHP native**, deployment di server Mobian (Debian ARM/SBC) sangat ringan dan hemat memori (< 150 MB RAM total):
+
+1. **Masuk ke Server Mobian:**
+   ```bash
+   ssh mobian@gemas.v6.rocks
+   ```
+
+2. **Kloning ke Direktori Web Server:**
+   ```bash
+   git clone git@github.com:gemausername/minicourse.git /var/www/minicourse
+   cd /var/www/minicourse
+   ```
+
+3. **Install & Setup:**
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   cp .env.example .env
+   php artisan key:generate
+   touch database/database.sqlite
+   php artisan migrate --force --seed
+   sudo chown -R www-data:www-data storage bootstrap/cache database
+   ```
+
+4. **Konfigurasi Web Server (Nginx):**
+   Arahkan root direktori ke `/var/www/minicourse/public`.
